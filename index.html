@@ -4,10 +4,134 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Where to go</title>
+
+    <!-- Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,200;6..12,300;6..12,400;6..12,500;6..12,600;6..12,700&display=swap"
+      rel="stylesheet"
+    />
+
     <link rel="stylesheet" href="style.css" />
     <script defer src="script.js"></script>
   </head>
   <body>
-    <h1>Hello</h1>
+    <header class="header">
+      <div class="header__container flex">
+        <span class="title">Where in the world?</span>
+
+        <button class="btn flex" id="darkmode">
+          <ion-icon class="dark__icon" name="contrast-outline"></ion-icon>
+          Dark Mode
+        </button>
+      </div>
+    </header>
+
+    <main class="main">
+      <div class="main__container grid">
+        <!-- SEARCH BOX -->
+        <div class="search__box flex">
+          <div>
+            <img
+              class="inputicon"
+              src="../image/search-alt-1-svgrepo-com.svg"
+              alt=""
+            />
+          </div>
+
+          <input type="text" placeholder="Search for a country..." />
+
+          <div id="location__icon">
+            <img
+              class="inputicon"
+              src="../image/location-pin-svgrepo-com.svg"
+              alt=""
+            />
+          </div>
+        </div>
+
+        <!-- DETAILs -->
+        <section class="data">
+          <div class="data__container grid">
+            <!-- Images -->
+            <div class="img__box">
+              <!-- <img src="https://flagcdn.com/be.svg" alt="" /> -->
+              <img src="../image/flag.png" alt="" />
+            </div>
+
+            <!-- Country Details -->
+            <div class="country__details grid">
+              <h1 class="primary--title">Belgium</h1>
+              <div class="detail__box mg-bttm--med">
+                <ul class="sub__details sub__details-1 flex">
+                  <li>
+                    <p class="para">Native Name:</p>
+                    <span class="ans">Belgie</span>
+                  </li>
+
+                  <li>
+                    <p class="para">Population:</p>
+                    <span class="ans">11,319,511</span>
+                  </li>
+
+                  <li>
+                    <p class="para">Region:</p>
+                    <span class="ans">Europe</span>
+                  </li>
+
+                  <li>
+                    <p class="para">Sub Region:</p>
+                    <span class="ans">Western Europe</span>
+                  </li>
+
+                  <li>
+                    <p class="para">Capital:</p>
+                    <span class="ans">Brussels</span>
+                  </li>
+                </ul>
+
+                <ul class="sub__details sub__details-2 flex">
+                  <li>
+                    <p class="para">Top Level Domain:</p>
+                    <span class="ans">.be</span>
+                  </li>
+                  <li>
+                    <p class="para">Currency:</p>
+                    <span class="ans">Euro</span>
+                  </li>
+                  <li>
+                    <p class="para">Languages:</p>
+                    <span class="ans">Dutch, French, German</span>
+                  </li>
+                </ul>
+              </div>
+
+              <!-- Neighbour -->
+              <div class="neighbour__box flex">
+                <h2 class="secondary--title">Border Countries:</h2>
+                <div class="neighbours">
+                  <ul class="lists grid">
+                    <li class="style-1">France</li>
+                    <li class="style-1">Germany</li>
+                    <li class="style-1">Netherlands</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- Ionicons -->
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
   </body>
 </html>
