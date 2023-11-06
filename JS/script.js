@@ -63,6 +63,7 @@ const renderCountryList = function (arr) {
 suggestion__lists.addEventListener("click", function (e) {
   if (e.target.className === "suggest__list") {
     inputCountry.value = e.target.textContent;
+    suggestion__lists.innerHTML = "";
   }
 });
 
