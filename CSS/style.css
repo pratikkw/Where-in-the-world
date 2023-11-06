@@ -189,7 +189,7 @@ body {
   max-width: var(--search__box-width);
   background-color: var(--element-clr);
   border: 1px solid var(--input-border-clr-2);
-  padding-block: 0.8rem 0rem;
+  padding-block: 0.8rem 0.8rem;
   border-radius: 0.5rem;
   gap: 0.25rem;
 }
@@ -241,6 +241,10 @@ body {
 
 .suggest__list:not(:last-child) {
   border-bottom: 1px solid var(--input-border-clr-2);
+}
+
+.suggest__list:last-child {
+  padding: 0.8rem 1.25rem 0rem 1.25rem;
 }
 
 .suggestion__box--active {
