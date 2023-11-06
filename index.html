@@ -34,33 +34,44 @@
     <main class="main">
       <div class="main__container grid">
         <!-- SEARCH BOX -->
-        <div class="search__box flex">
-          <div>
-            <img
-              class="inputicon"
-              src="../image/search-alt-1-svgrepo-com.svg"
-              alt=""
-            />
+        <div class="search__box grid">
+          <div class="search__sub-box flex">
+            <div>
+              <img
+                class="inputicon"
+                src="../image/search-alt-1-svgrepo-com.svg"
+                alt=""
+              />
+            </div>
+
+            <input type="text" placeholder="Search for a country..." />
+
+            <div id="location__icon">
+              <img
+                class="inputicon"
+                src="../image/location-pin-svgrepo-com.svg"
+                alt=""
+              />
+            </div>
           </div>
 
-          <input type="text" placeholder="Search for a country..." />
-
-          <div id="location__icon">
-            <img
-              class="inputicon"
-              src="../image/location-pin-svgrepo-com.svg"
-              alt=""
-            />
+          <div class="suggestion__box grid">
+            <ul class="suggestion__lists grid">
+              <li class="suggest__list">India</li>
+              <li class="suggest__list">America</li>
+              <li class="suggest__list">Brazil</li>
+              <li class="suggest__list">Nepal</li>
+              <li class="suggest__list">Spain</li>
+            </ul>
           </div>
         </div>
 
         <!-- DETAILs -->
         <section class="data">
           <div class="data__container grid">
-            <!-- Images -->
+            <!-- Images Box -->
             <div class="img__box">
-              <!-- <img src="https://flagcdn.com/be.svg" alt="" /> -->
-              <img src="../image/flag.png" alt="" />
+              <img src="https://flagcdn.com/be.svg" alt="" />
             </div>
 
             <!-- Country Details -->
