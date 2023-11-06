@@ -65,13 +65,20 @@
             </div>
 
             <div class="suggestion__box grid">
-              <ul class="suggestion__lists grid">
-                <li class="suggest__list">India</li>
-                <li class="suggest__list">America</li>
-                <li class="suggest__list">Brazil</li>
-                <li class="suggest__list">Nepal</li>
-                <li class="suggest__list">Spain</li>
-              </ul>
+              <div class="suggestion__sub-box">
+                <ul class="suggestion__lists grid">
+                  <li class="suggest__list">India</li>
+                  <li class="suggest__list">America</li>
+                  <li class="suggest__list">Brazil</li>
+                  <li class="suggest__list">Nepal</li>
+                  <li class="suggest__list">Spain</li>
+                  <li class="suggest__list">Germany</li>
+                  <li class="suggest__list">Bhutan</li>
+                  <li class="suggest__list">Spain</li>
+                  <li class="suggest__list">Netherlands</li>
+                  <li class="suggest__list">Russia</li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
@@ -80,8 +87,31 @@
         <section class="data">
           <div class="data__container grid">
             <!-- Images Box -->
-            <div class="img__box">
-              <img src="https://flagcdn.com/be.svg" alt="" />
+            <div class="slider__box grid">
+              <div class="picture">
+                <div class="imgs__box">
+                  <img src="https://flagcdn.com/be.svg" alt="" />
+                  <img src="https://flagcdn.com/in.svg" alt="" />
+                </div>
+
+                <div class="arrow arrow--left">
+                  <ion-icon
+                    class="arr arr--left"
+                    name="chevron-back-outline"
+                  ></ion-icon>
+                </div>
+                <div class="arrow arrow--right">
+                  <ion-icon
+                    class="arr arr--left"
+                    name="chevron-forward-outline"
+                  ></ion-icon>
+                </div>
+              </div>
+
+              <div class="dots flex">
+                <!-- <button class="btn--dot"></button>
+                <button class="btn--dot"></button> -->
+              </div>
             </div>
 
             <!-- Country Details -->
@@ -124,7 +154,7 @@
                     <p class="para">Currency:</p>
                     <span class="ans">Euro</span>
                   </li>
-                  <li>
+                  <li class="lang--mdf">
                     <p class="para">Languages:</p>
                     <span class="ans">Dutch, French, German</span>
                   </li>
