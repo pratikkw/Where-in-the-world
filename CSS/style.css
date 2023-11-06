@@ -196,9 +196,9 @@ body {
 
 .search__sub-box {
   border-radius: 100px;
-  border: 1px solid var(--input-border-clr);
+  /* border: 1px solid var(--input-border-clr); */
   background-color: var(--element-clr);
-  padding: var(--search__box-padding);
+  /* padding: var(--search__box-padding); */
   margin-inline: 0.75rem;
 }
 
