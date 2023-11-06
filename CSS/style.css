@@ -166,9 +166,6 @@ body {
   /* Width */
   --search__box-width: 37.5rem;
 
-  /* Padding */
-  --search__box-padding: 0.5rem 1rem;
-
   /* Gap */
   --data__container-gap: 3rem;
   --country__details-gap: 2rem;
@@ -196,9 +193,7 @@ body {
 
 .search__sub-box {
   border-radius: 100px;
-  /* border: 1px solid var(--input-border-clr); */
   background-color: var(--element-clr);
-  /* padding: var(--search__box-padding); */
   margin-inline: 0.75rem;
 }
 
@@ -237,6 +232,8 @@ body {
 
 .suggest__list {
   padding: 0.8rem 1.25rem;
+  font-size: 1.125rem;
+  font-weight: 500;
 }
 
 .suggest__list:not(:last-child) {
