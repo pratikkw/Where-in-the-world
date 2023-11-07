@@ -131,6 +131,7 @@ const displayBorders = function (arr) {
 
 let bor;
 const displayData = function (result) {
+  inputCountry.blur();
   curSlide = 0;
   moveSlide(curSlide);
   inputCountry.value = "";
@@ -216,11 +217,4 @@ searchBtn.addEventListener("click", function () {
   const str = inputCountry.value.trim();
   getCountryData(str);
 });
-
 //////////////////////////////
-
-document
-  .querySelector("#location__icon")
-  .addEventListener("click", function () {
-    navigator.virtualKeyboard.show();
-  });
