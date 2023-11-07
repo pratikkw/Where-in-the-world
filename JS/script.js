@@ -158,7 +158,6 @@ const displayData = function (result) {
   currency.textContent = `${cur.symbol} (${cur.name})`;
   langSet.textContent = lang;
 
-  // displayBorders(bor);
   getBorderFullname(bor);
 };
 
@@ -247,4 +246,11 @@ searchBtn.addEventListener("click", function () {
   if (str === "") return;
   getCountryData(str);
 });
+
+neighboursList.addEventListener("click", function (e) {
+  if (e.target.className !== "style-1") return;
+  getCountryData(e.target.textContent);
+  window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+});
+
 //////////////////////////////

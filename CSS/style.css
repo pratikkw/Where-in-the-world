@@ -137,6 +137,7 @@ body {
 }
 
 .style-1 {
+  cursor: pointer;
   padding: var(--style-1-padding);
   border-radius: 2px;
   background-color: var(--element-clr);
