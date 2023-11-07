@@ -1,9 +1,20 @@
 "use strict";
+const flagImg = document.getElementById("flag-img");
+const coatOfArmsImg = document.getElementById("coatofarm-img");
+const primaryName = document.getElementById("primary-name");
+const officialName = document.getElementById("Officialname");
+const population = document.getElementById("population");
+const region = document.getElementById("region");
+const subRegion = document.getElementById("sub-region");
+const capital = document.getElementById("capital");
+const continents = document.getElementById("continents");
+const area = document.getElementById("area");
+const currency = document.getElementById("currency");
+const langSet = document.getElementById("lang");
 
 // --> DarkMode
 const body = document.querySelector("body");
 const darkModeBtn = document.getElementById("darkmode");
-
 let stateOfMode = localStorage.getItem("mode");
 
 const activeMode = function () {
@@ -27,56 +38,6 @@ darkModeBtn.addEventListener("click", function () {
     activeMode();
   } else {
     deActiveMode();
-  }
-});
-//////////////////////////////
-
-// --> Search Suggestion
-const btnSearch = document.getElementById("search-icon");
-const inputCountry = document.getElementById("inputCountry");
-const suggestion__box = document.querySelector(".suggestion__box");
-const suggestion__subBox = document.querySelector(".suggestion__sub-box");
-const suggestion__lists = document.querySelector(".suggestion__lists");
-
-let countryName;
-
-const countryNameData = async function () {
-  const data = await fetch(`countryData.json`);
-  const { countries } = await data.json();
-  countryName = countries;
-};
-countryNameData();
-
-const renderCountryList = function (arr) {
-  suggestion__lists.innerHTML = "";
-  suggestion__box.classList.add("suggestion__box--active");
-  arr
-    .map((item) => {
-      const ele = document.createElement("li");
-      ele.className = "suggest__list";
-      ele.textContent = item;
-      return ele;
-    })
-    .forEach((item) => suggestion__lists.prepend(item));
-};
-
-suggestion__lists.addEventListener("click", function (e) {
-  if (e.target.className === "suggest__list") {
-    inputCountry.value = e.target.textContent;
-    suggestion__lists.innerHTML = "";
-  }
-});
-
-inputCountry.addEventListener("input", function () {
-  const inputCountry = this.value;
-  const filterCountry = countryName.filter((item) =>
-    item.toLowerCase().startsWith(inputCountry.toLowerCase())
-  );
-  renderCountryList(filterCountry);
-
-  if (inputCountry === "") {
-    suggestion__lists.innerHTML = "";
-    suggestion__box.classList.remove("suggestion__box--active");
   }
 });
 //////////////////////////////
@@ -137,5 +98,96 @@ dots.addEventListener("click", function (e) {
   if (e.target.className !== "btn-dot") return;
   curSlide = e.target.dataslide;
   moveSlide(curSlide);
+});
+//////////////////////////////
+
+// --> Search Suggestion
+const btnSearch = document.getElementById("search-icon");
+const inputCountry = document.getElementById("inputCountry");
+const suggestion__box = document.querySelector(".suggestion__box");
+const suggestion__subBox = document.querySelector(".suggestion__sub-box");
+const suggestion__lists = document.querySelector(".suggestion__lists");
+
+let countryName;
+
+const countryNameData = async function () {
+  const data = await fetch(`countryData.json`);
+  const { countries } = await data.json();
+  countryName = countries;
+};
+countryNameData();
+
+let bor;
+
+const displayData = function (result) {
+  curSlide = 0;
+  moveSlide(curSlide);
+  inputCountry.value = "";
+
+  const [cap] = result.capital;
+  const [conti] = result.continents;
+  const [cur] = Object.values(result.currencies);
+  const lang = Object.values(result.languages);
+  if (result.borders) {
+    bor = result.borders;
+  } else {
+    bor = "No Neighbours";
+  }
+
+  flagImg.src = result.flags.svg;
+  coatOfArmsImg.src = result.coatOfArms.svg;
+  primaryName.textContent = result.name.common;
+  officialName.textContent = result.name.official;
+  population.textContent = result.population;
+  region.textContent = result.region;
+  subRegion.textContent = result.subregion;
+  capital.textContent = cap;
+  continents.textContent = conti;
+  area.textContent = result.area;
+  currency.textContent = `${cur.symbol} (${cur.name})`;
+  langSet.textContent = lang;
+};
+
+const getCountryData = async function (country) {
+  const data = await fetch(
+    `https://restcountries.com/v3.1/name/${country}?fullText=true`
+  );
+  const [result] = await data.json();
+  displayData(result);
+};
+
+const renderCountryList = function (arr) {
+  suggestion__lists.innerHTML = "";
+  suggestion__box.classList.add("suggestion__box--active");
+  arr
+    .map((item) => {
+      const ele = document.createElement("li");
+      ele.className = "suggest__list";
+      ele.textContent = item;
+      return ele;
+    })
+    .forEach((item) => suggestion__lists.prepend(item));
+};
+
+suggestion__lists.addEventListener("click", function (e) {
+  if (e.target.className === "suggest__list") {
+    inputCountry.value = e.target.textContent;
+    let searchCountry = inputCountry.value;
+    suggestion__lists.innerHTML = "";
+    getCountryData(searchCountry);
+  }
+});
+
+inputCountry.addEventListener("input", function () {
+  const inputCountry = this.value;
+  const filterCountry = countryName.filter((item) =>
+    item.toLowerCase().startsWith(inputCountry.toLowerCase())
+  );
+  renderCountryList(filterCountry);
+
+  if (inputCountry === "") {
+    suggestion__lists.innerHTML = "";
+    suggestion__box.classList.remove("suggestion__box--active");
+  }
 });
 //////////////////////////////

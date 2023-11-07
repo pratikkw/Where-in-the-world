@@ -48,6 +48,7 @@
               <input
                 id="inputCountry"
                 type="text"
+                enterkeyhint="done"
                 placeholder="Search for a country..."
               />
 
@@ -94,8 +95,12 @@
             <div class="slider__box grid">
               <div class="picture">
                 <div class="imgs__box">
-                  <img src="https://flagcdn.com/be.svg" alt="" />
-                  <img src="https://flagcdn.com/in.svg" alt="" />
+                  <img id="flag-img" src="https://flagcdn.com/be.svg" alt="" />
+                  <img
+                    id="coatofarm-img"
+                    src="https://flagcdn.com/in.svg"
+                    alt=""
+                  />
                 </div>
 
                 <div class="arrow arrow--left">
@@ -120,47 +125,51 @@
 
             <!-- Country Details -->
             <div class="country__details grid">
-              <h1 class="primary--title">Belgium</h1>
+              <h1 id="primary-name" class="primary--title">Belgium</h1>
               <div class="detail__box mg-bttm--med">
                 <ul class="sub__details sub__details-1 flex">
-                  <li>
-                    <p class="para">Native Name:</p>
-                    <span class="ans">Belgie</span>
+                  <li class="officialname--mdf">
+                    <p class="para">Official Name:</p>
+                    <span id="Officialname" class="ans">Belgie</span>
                   </li>
 
                   <li>
                     <p class="para">Population:</p>
-                    <span class="ans">11,319,511</span>
+                    <span id="population" class="ans">11,319,511</span>
                   </li>
 
                   <li>
                     <p class="para">Region:</p>
-                    <span class="ans">Europe</span>
+                    <span id="region" class="ans">Europe</span>
                   </li>
 
                   <li>
                     <p class="para">Sub Region:</p>
-                    <span class="ans">Western Europe</span>
+                    <span id="sub-region" class="ans">Western Europe</span>
                   </li>
 
                   <li>
                     <p class="para">Capital:</p>
-                    <span class="ans">Brussels</span>
+                    <span id="capital" class="ans">Brussels</span>
                   </li>
                 </ul>
 
                 <ul class="sub__details sub__details-2 flex">
                   <li>
-                    <p class="para">Top Level Domain:</p>
-                    <span class="ans">.be</span>
+                    <p class="para">Continents:</p>
+                    <span id="continents" class="ans">Asia</span>
                   </li>
                   <li>
+                    <p class="para">Area:</p>
+                    <span id="area" class="ans">.be</span>
+                  </li>
+                  <li class="currency--mdf">
                     <p class="para">Currency:</p>
-                    <span class="ans">Euro</span>
+                    <span id="currency" class="ans">Euro</span>
                   </li>
                   <li class="lang--mdf">
                     <p class="para">Languages:</p>
-                    <span class="ans">Dutch, French, German</span>
+                    <span id="lang" class="ans">Dutch, French, German</span>
                   </li>
                 </ul>
               </div>

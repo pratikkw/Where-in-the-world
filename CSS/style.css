@@ -316,10 +316,18 @@ body {
   align-items: flex-start;
 }
 
+.officialname--mdf > p {
+  white-space: nowrap;
+}
+
 .sub__details > li {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   gap: var(--sub__details_li);
+}
+
+.sub__details > li > p {
+  white-space: nowrap;
 }
 
 .neighbour__box {
@@ -402,9 +410,6 @@ body {
 /* ----------------------- */
 
 /* Some functionality and modified class */
-.sub__details .lang--mdf {
-  align-items: flex-start;
-}
 /* ----------------------- */
 
 @media only screen and (min-width: 500px) {
@@ -446,13 +451,12 @@ body {
     height: 17rem;
   }
 
-  .imgs__box > img {
-    /* width: 25rem;
-    height: 17rem; */
-  }
-
   .lists {
     grid-template-columns: repeat(auto-fit, minmax(15ch, 4.6875rem));
+  }
+
+  .sub__details {
+    gap: 1.15rem;
   }
 }
 
@@ -460,7 +464,7 @@ body {
   .main {
     /* Gap */
     --data__container-gap: 4rem;
-    --detail__box-gap: 0rem;
+    --detail__box-gap: 1.25rem;
 
     /* Padding */
     --data__container-padding: 1.5rem 1.5rem;
@@ -486,11 +490,6 @@ body {
   .imgs__box {
     width: 31rem;
     height: 20rem;
-  }
-
-  .imgs__box > img {
-    /* width: 31rem;
-    height: 20rem; */
   }
 
   .mg-bttm--med {
