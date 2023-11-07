@@ -47,6 +47,8 @@ select {
 
   /* Colors */
   --background-clr: hsl(0, 0%, 98%);
+  --errorBox-bk-clr: hsl(198, 12%, 73%);
+  --wrong-icon-clr: hsl(6, 78%, 57%);
   --element-clr: hsl(0, 0%, 100%);
   --input-border-clr: hsl(0, 0%, 52%);
   --input-border-clr-2: hsl(0, 0%, 52%);
@@ -57,20 +59,24 @@ select {
   --active-dot-clr: hsl(193, 9%, 19%);
 
   /* Width */
+  --display__error-width: 37.5rem;
   --header__container-width: 81.25rem;
   --main__container-width: 75rem;
-  /* --main__container-width: 78.125rem; */
 
   /* Padding */
+  --display__error-padding: 1rem 1.25rem;
   --header__container-padding: 1.75rem 1.5rem;
   --style-1-padding: 0.5rem 1.5rem;
 
   /* Gap */
+  --display__error_container-gap: 0.75rem;
   --main__container-gap: 3rem;
 }
 
 .darkmode {
   --background-clr: hsl(207, 26%, 17%);
+  --errorBox-bk-clr: hsl(168, 100%, 36%);
+  --wrong-icon-clr: hsl(0, 100%, 50%);
   --element-clr: hsl(209, 23%, 22%);
   --body-text-clr: hsl(0, 0%, 100%);
   --input-border-clr: hsl(0, 0%, 100%);
@@ -136,6 +142,49 @@ body {
   background-color: var(--element-clr);
   box-shadow: 1px 1px 4px 2px hsla(0, 0%, 0%, 0.15);
 }
+/* ----------------------- */
+
+/* Display Error */
+.display__error {
+  max-width: var(--display__error-width);
+  margin: 0 auto;
+
+  position: absolute;
+  inset: 2rem 1rem auto 1rem;
+  z-index: 30;
+  background-color: var(--errorBox-bk-clr);
+  padding: var(--display__error-padding);
+  border-radius: 0.25rem;
+  transform: translate(0%, -150%);
+  transition: transform 0.3s;
+}
+
+.display__error_container {
+  gap: var(--display__error_container-gap);
+}
+
+.wrong__icon {
+  cursor: pointer;
+  font-size: 2rem;
+  color: var(--wrong-icon-clr);
+  --ionicon-stroke-width: 2rem;
+}
+
+.display__error_container > p {
+  color: hsl(0, 0%, 0%);
+}
+
+.highlight {
+  text-transform: uppercase;
+  text-decoration: underline solid;
+  color: var(--wrong-icon-clr);
+  margin-inline: 0.25rem;
+}
+
+.display__error--active {
+  transform: translate(0%, 0%);
+}
+
 /* ----------------------- */
 
 /* HEADER */

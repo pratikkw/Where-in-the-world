@@ -18,27 +18,21 @@ const body = document.querySelector("body");
 const darkModeBtn = document.getElementById("darkmode");
 let stateOfMode = localStorage.getItem("mode");
 
-const activeMode = function () {
-  body.classList.add("darkmode");
-  localStorage.setItem("mode", "enable");
-};
-
-const deActiveMode = function () {
-  body.classList.remove("darkmode");
-  localStorage.setItem("mode", "disable");
+const onAndOff = function (state) {
+  body.classList.toggle("darkmode");
+  localStorage.setItem("mode", `${state}`);
 };
 
 if (stateOfMode === "enable") {
-  activeMode();
+  onAndOff("enable");
 }
 
 darkModeBtn.addEventListener("click", function () {
   stateOfMode = localStorage.getItem("mode");
-  console.log(stateOfMode);
   if (stateOfMode !== "enable") {
-    activeMode();
+    onAndOff("enable");
   } else {
-    deActiveMode();
+    onAndOff("disable");
   }
 });
 //////////////////////////////
@@ -103,7 +97,6 @@ dots.addEventListener("click", function (e) {
 //////////////////////////////
 
 // --> Search Suggestion
-const btnSearch = document.getElementById("search-icon");
 const inputCountry = document.getElementById("inputCountry");
 const suggestion__box = document.querySelector(".suggestion__box");
 const suggestion__subBox = document.querySelector(".suggestion__sub-box");
@@ -140,13 +133,10 @@ const displayData = function (result) {
   const [conti] = result.continents;
   const [cur] = Object.values(result.currencies);
   const lang = Object.values(result.languages);
-  if (result.borders) {
-    bor = result.borders;
-  } else {
-    bor = ["No Borders"];
-  }
+  bor = result.borders ? result.borders : ["No Borders"];
 
   flagImg.src = result.flags.svg;
+  flagImg.alt = result.flags.alt;
   coatOfArmsImg.src = result.coatOfArms.svg;
   primaryName.textContent = result.name.common;
   officialName.textContent = result.name.official;
@@ -158,17 +148,45 @@ const displayData = function (result) {
   area.textContent = result.area;
   currency.textContent = `${cur.symbol} (${cur.name})`;
   langSet.textContent = lang;
-  // console.log(bor);
+
   displayBorders(bor);
 };
 
-const getCountryData = async function (country) {
-  const data = await fetch(
-    `https://restcountries.com/v3.1/name/${country}?fullText=true`
-  );
-  const [result] = await data.json();
-  displayData(result);
+const displayErrorBox = document.querySelector(".display__error");
+const errorMsg = document.querySelector(".errormsg");
+const closeErrorBtn = document.querySelector(".wrong__icon");
+let timer;
+
+const autoClose = function () {
+  displayErrorBox.classList.remove("display__error--active");
 };
+
+const showError = function (str) {
+  clearTimeout(timer);
+  inputCountry.value = "";
+  errorMsg.innerHTML = `Country with name <span class="highlight">${str}</span> does not exist!`;
+  displayErrorBox.classList.add("display__error--active");
+  timer = setTimeout(autoClose, 3000);
+};
+
+closeErrorBtn.addEventListener("click", function () {
+  displayErrorBox.classList.remove("display__error--active");
+  clearTimeout(timer);
+});
+
+const getCountryData = async function (country) {
+  try {
+    const data = await fetch(
+      `https://restcountries.com/v3.1/name/${country}?fullText=true`
+    );
+    if (!data.ok) throw new Error(country);
+    const [result] = await data.json();
+    displayData(result);
+  } catch (e) {
+    showError(e.message);
+  }
+};
+getCountryData("india");
 
 const renderCountryList = function (arr) {
   suggestion__lists.innerHTML = "";
@@ -209,12 +227,14 @@ inputCountry.addEventListener("keydown", function (e) {
   if (e.key !== "Enter") return;
   suggestion__lists.innerHTML = "";
   const str = this.value.trim();
+  if (str === "") return;
   getCountryData(str);
 });
 
 searchBtn.addEventListener("click", function () {
   suggestion__lists.innerHTML = "";
   const str = inputCountry.value.trim();
+  if (str === "") return;
   getCountryData(str);
 });
 //////////////////////////////

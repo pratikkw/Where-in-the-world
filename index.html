@@ -20,6 +20,15 @@
     <script defer src="JS/script.js"></script>
   </head>
   <body>
+    <div class="display__error">
+      <div class="display__error_container flex">
+        <ion-icon class="wrong__icon" name="close-circle-outline"></ion-icon>
+        <p class="para errormsg">
+          Country with name <span class="highlight">xyx</span> does not exist!
+        </p>
+      </div>
+    </div>
+
     <header class="header">
       <div class="header__container flex">
         <span class="title">Where in the world?</span>
@@ -37,6 +46,7 @@
         <div class="search__container">
           <div class="search__box grid">
             <div class="search__sub-box flex">
+              <!-- Search Icon -->
               <div id="search-icon">
                 <img
                   class="inputicon"
@@ -45,6 +55,7 @@
                 />
               </div>
 
+              <!-- Search Box -->
               <input
                 id="inputCountry"
                 type="text"
@@ -52,6 +63,7 @@
                 placeholder="Search for a country..."
               />
 
+              <!-- Location Box -->
               <div id="location__icon">
                 <svg
                   class="inputicon"
@@ -89,12 +101,8 @@
             <div class="slider__box grid">
               <div class="picture">
                 <div class="imgs__box">
-                  <img id="flag-img" src="https://flagcdn.com/be.svg" alt="" />
-                  <img
-                    id="coatofarm-img"
-                    src="https://flagcdn.com/in.svg"
-                    alt=""
-                  />
+                  <img id="flag-img" src="" alt="" />
+                  <img id="coatofarm-img" src="" alt="" />
                 </div>
 
                 <div class="arrow arrow--left">
