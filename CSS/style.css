@@ -171,10 +171,12 @@ body {
 }
 
 .display__error_container > p {
+  font-weight: 500;
   color: hsl(0, 0%, 0%);
 }
 
 .highlight {
+  font-weight: 700;
   text-transform: uppercase;
   text-decoration: underline solid;
   color: var(--wrong-icon-clr);
@@ -424,6 +426,10 @@ body {
   transition: transform 0.3s;
 }
 
+.dots {
+  gap: 1.75rem;
+}
+
 .btn-dot {
   width: 0.75rem;
   aspect-ratio: 1/1;
@@ -524,12 +530,13 @@ body {
   }
 
   .data__container {
+    align-items: start;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   }
 
   .slider__box {
     justify-self: center;
-    gap: 0rem;
+    gap: 1rem;
   }
 
   .dots {
