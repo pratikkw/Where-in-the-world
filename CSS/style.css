@@ -143,6 +143,11 @@ body {
   background-color: var(--element-clr);
   box-shadow: 1px 1px 4px 2px hsla(0, 0%, 0%, 0.15);
 }
+
+.style-1::selection {
+  user-select: none;
+}
+
 /* ----------------------- */
 
 /* Display Error */
