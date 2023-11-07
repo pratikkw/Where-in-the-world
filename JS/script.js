@@ -251,7 +251,7 @@ neighboursList.addEventListener("click", function (e) {
   e.preventDefault();
   if (e.target.className !== "style-1") return;
   getCountryData(e.target.textContent);
-  window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  window.scrollTo({ top: 0, left: 0, behavior: "instant" });
 });
 
 //////////////////////////////
