@@ -57,6 +57,7 @@ select {
   --header-shadow: 1px 1px 4px 2px hsla(0, 0%, 0%, 0.15);
   --location-icon-clr: hsl(0, 0%, 0%);
   --active-dot-clr: hsl(193, 9%, 19%);
+  --globe-link-clr: hsl(219, 95%, 45%);
 
   /* Width */
   --display__error-width: 37.5rem;
@@ -85,6 +86,7 @@ select {
   --header-shadow: 0px -5px 10px 10px hsla(200, 5%, 12%, 0.31);
   --location-icon-clr: hsl(0, 0%, 100%);
   --active-dot-clr: hsl(0, 0%, 100%);
+  --globe-link-clr: hsl(168, 100%, 36%);
 }
 
 body {
@@ -387,6 +389,27 @@ body {
   white-space: nowrap;
 }
 
+.sub__details .globe--mdf {
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.globe-icon {
+  width: 2rem;
+  aspect-ratio: 1/1;
+}
+
+.globe-link {
+  font-weight: 600;
+  color: var(--globe-link-clr);
+}
+
+.highlight-2 {
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-inline: 0.25rem;
+}
+
 .neighbour__box {
   gap: var(--neighbour__box-gap);
   flex-wrap: wrap;
@@ -473,7 +496,7 @@ body {
 /* Some functionality and modified class */
 /* ----------------------- */
 
-@media only screen and (min-width: 500px) {
+@media only screen and (min-width: 31.25rem) {
   .arrow {
     bottom: auto;
     top: 50%;
@@ -559,7 +582,7 @@ body {
   }
 }
 
-@media only screen and (min-width: 1100px) {
+@media only screen and (min-width: 68.75rem) {
   .slider__box {
     justify-self: flex-start;
   }

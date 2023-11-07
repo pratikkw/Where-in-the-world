@@ -12,6 +12,7 @@ const continents = document.getElementById("continents");
 const area = document.getElementById("area");
 const currency = document.getElementById("currency");
 const langSet = document.getElementById("lang");
+const linkText = document.querySelector(".highlight-2-text");
 
 // --> DarkMode
 const body = document.querySelector("body");
@@ -157,6 +158,7 @@ const displayData = function (result) {
   area.textContent = result.area;
   currency.textContent = `${cur.symbol} (${cur.name})`;
   langSet.textContent = lang;
+  linkText.textContent = result.name.common;
 
   getBorderFullname(bor);
 };
