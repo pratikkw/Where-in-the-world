@@ -1,4 +1,5 @@
 "use strict";
+const searchBtn = document.getElementById("search-icon");
 const flagImg = document.getElementById("flag-img");
 const coatOfArmsImg = document.getElementById("coatofarm-img");
 const primaryName = document.getElementById("primary-name");
@@ -107,9 +108,9 @@ const inputCountry = document.getElementById("inputCountry");
 const suggestion__box = document.querySelector(".suggestion__box");
 const suggestion__subBox = document.querySelector(".suggestion__sub-box");
 const suggestion__lists = document.querySelector(".suggestion__lists");
+const neighboursList = document.querySelector(".neighbours > ul");
 
 let countryName;
-
 const countryNameData = async function () {
   const data = await fetch(`countryData.json`);
   const { countries } = await data.json();
@@ -117,8 +118,18 @@ const countryNameData = async function () {
 };
 countryNameData();
 
-let bor;
+const displayBorders = function (arr) {
+  neighboursList.innerHTML = "";
+  const borderCountries = arr.map((item) => {
+    const ele = document.createElement("li");
+    ele.className = "style-1";
+    ele.textContent = item;
+    return ele;
+  });
+  borderCountries.forEach((item) => neighboursList.append(item));
+};
 
+let bor;
 const displayData = function (result) {
   curSlide = 0;
   moveSlide(curSlide);
@@ -131,7 +142,7 @@ const displayData = function (result) {
   if (result.borders) {
     bor = result.borders;
   } else {
-    bor = "No Neighbours";
+    bor = ["No Borders"];
   }
 
   flagImg.src = result.flags.svg;
@@ -146,6 +157,8 @@ const displayData = function (result) {
   area.textContent = result.area;
   currency.textContent = `${cur.symbol} (${cur.name})`;
   langSet.textContent = lang;
+  // console.log(bor);
+  displayBorders(bor);
 };
 
 const getCountryData = async function (country) {
@@ -190,4 +203,22 @@ inputCountry.addEventListener("input", function () {
     suggestion__box.classList.remove("suggestion__box--active");
   }
 });
+
+inputCountry.addEventListener("keydown", function (e) {
+  if (e.key !== "Enter") return;
+  suggestion__lists.innerHTML = "";
+  const str = this.value.trim();
+  getCountryData(str);
+});
+
+searchBtn.addEventListener("click", function () {
+  suggestion__lists.innerHTML = "";
+  const str = inputCountry.value.trim();
+  getCountryData(str);
+});
+
 //////////////////////////////
+let a = " pratik ";
+let b = a.trim();
+console.log(a.length);
+console.log(b.length);

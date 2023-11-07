@@ -396,12 +396,12 @@ body {
 
 .arrow--left {
   left: 0;
-  transform: translate(120%, 110%);
+  transform: translate(90%, 110%);
 }
 
 .arrow--right {
   right: 0;
-  transform: translate(-120%, 110%);
+  transform: translate(-90%, 110%);
 }
 
 .arr {
