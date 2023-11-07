@@ -125,7 +125,8 @@ const displayBorders = function (arr) {
 
 const getBorderFullname = async function (arrayBorder) {
   const data = await fetch(
-    `https://restcountries.com/v3.1/alpha?codes=170,${arrayBorder.join(",")}`
+    // `https://restcountries.com/v3.1/alpha?codes=170,${arrayBorder.join(",")}`
+    `https://restcountries.com/v3.1/alpha?codes=${arrayBorder.join(",")}`
   );
   const res = await data.json();
   const storeName = res.map((item) => item.name.common);
@@ -160,7 +161,11 @@ const displayData = function (result) {
   langSet.textContent = lang;
   linkText.textContent = result.name.common;
 
-  getBorderFullname(bor);
+  if (bor.every((item) => item === "No Borders")) {
+    displayBorders(bor);
+  } else {
+    getBorderFullname(bor);
+  }
 };
 
 const displayErrorBox = document.querySelector(".display__error");
