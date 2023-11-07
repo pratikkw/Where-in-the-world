@@ -218,7 +218,9 @@ searchBtn.addEventListener("click", function () {
 });
 
 //////////////////////////////
-let a = " pratik ";
-let b = a.trim();
-console.log(a.length);
-console.log(b.length);
+
+document
+  .querySelector("#location__icon")
+  .addEventListener("click", function () {
+    navigator.virtualKeyboard.show();
+  });
