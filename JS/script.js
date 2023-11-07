@@ -122,6 +122,15 @@ const displayBorders = function (arr) {
   borderCountries.forEach((item) => neighboursList.append(item));
 };
 
+const getBorderFullname = async function (arrayBorder) {
+  const data = await fetch(
+    `https://restcountries.com/v3.1/alpha?codes=170,${arrayBorder.join(",")}`
+  );
+  const res = await data.json();
+  const storeName = res.map((item) => item.name.common);
+  displayBorders(storeName);
+};
+
 let bor;
 const displayData = function (result) {
   inputCountry.blur();
@@ -149,7 +158,8 @@ const displayData = function (result) {
   currency.textContent = `${cur.symbol} (${cur.name})`;
   langSet.textContent = lang;
 
-  displayBorders(bor);
+  // displayBorders(bor);
+  getBorderFullname(bor);
 };
 
 const displayErrorBox = document.querySelector(".display__error");
