@@ -1,15 +1,37 @@
 "use strict";
 
-import { countryData } from "./collectCountryData.js";
+const mapObject = JSON.parse(localStorage.getItem("mapDetails"));
 
-countryData();
+const successful = function (e) {
+  test([e.coords.latitude, e.coords.longitude]);
+};
 
-const map = L.map("map").setView([51.505, -0.09], 13);
+const unsuccessful = function () {
+  alert("Location access denied. Please enable the location access.");
+};
 
-L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-  maxZoom: 19,
-  attribution:
-    '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-}).addTo(map);
+const userLocation = function () {
+  navigator.geolocation.getCurrentPosition(successful, unsuccessful);
+};
 
-var marker = L.marker([51.5, -0.09]).addTo(map);
+const test = function (latlng) {
+  const map = L.map("map").setView(latlng, mapObject.view);
+
+  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom: 19,
+    attribution:
+      '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+  }).addTo(map);
+
+  const marker = L.marker(latlng).addTo(map);
+  marker
+    .bindPopup(
+      L.popup({ maxWidth: 250, minWidth: 100, className: `popup-style` })
+    )
+    .setPopupContent(`${mapObject.countryName}`)
+    .openPopup();
+};
+
+mapObject.yourlocation === false
+  ? test(mapObject.geoCoordinate)
+  : userLocation();

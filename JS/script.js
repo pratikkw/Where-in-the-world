@@ -11,7 +11,7 @@ const errorMsg = document.querySelector(".errormsg");
 // BUTTONs
 const closeErrorBtn = document.querySelector(".wrong__icon");
 const darkModeBtn = document.getElementById("darkmode");
-const locationBtn = document.getElementById("location__icon");
+const locationBtn = document.querySelector(".location__btn");
 const searchBtn = document.getElementById("search-icon");
 const btnLeft = document.querySelector(".arrow--left");
 const btnRight = document.querySelector(".arrow--right");
@@ -52,7 +52,8 @@ const neighboursList = document.querySelector(".neighbours > ul");
 let geoCoordinate;
 let curSlide = 0;
 let maxSlide = sliderImgs.length - 1;
-let countryName;
+let currentCountry;
+let countryNames;
 let border;
 let clearErrorTimeout;
 // ------------------------------------------
@@ -130,7 +131,7 @@ dots.addEventListener("click", function (e) {
 const countryNameData = async function () {
   const data = await fetch(`countryData.json`);
   const { countries } = await data.json();
-  countryName = countries;
+  countryNames = countries;
 };
 countryNameData();
 
@@ -163,6 +164,7 @@ const displayData = function (result) {
   moveSlide(curSlide);
   inputCountry.value = "";
 
+  geoCoordinate = result.latlng;
   const [cap] = result.capital;
   const [conti] = result.continents;
   const [cur] = Object.values(result.currencies);
@@ -188,6 +190,15 @@ const displayData = function (result) {
   currency.textContent = `${cur.symbol} (${cur.name})`;
   lang.forEach((item) => language.prepend(item));
   seeOnMapText.textContent = result.name.common;
+  localStorage.setItem(
+    "mapDetails",
+    JSON.stringify({
+      countryName: result.name.common,
+      geoCoordinate,
+      view: 6,
+      yourlocation: false,
+    })
+  );
 
   border.every((item) => item === "No Borders")
     ? displayBorders(border)
@@ -246,7 +257,7 @@ suggestion__lists.addEventListener("click", function (e) {
 });
 
 inputCountry.addEventListener("input", function () {
-  const filterCountry = countryName.filter((item) =>
+  const filterCountry = countryNames.filter((item) =>
     item.toLowerCase().startsWith(inputCountry.value.toLowerCase())
   );
   renderCountryList(filterCountry);
@@ -276,5 +287,17 @@ neighboursList.addEventListener("click", function (e) {
   if (e.target.className !== "style-1") return;
   getCountryData(e.target.textContent);
   window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+});
+
+locationBtn.addEventListener("click", function () {
+  localStorage.setItem(
+    "mapDetails",
+    JSON.stringify({
+      countryName: "You are there",
+      geoCoordinate,
+      view: 15,
+      yourlocation: true,
+    })
+  );
 });
 //////////////////////////////

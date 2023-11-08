@@ -21,6 +21,8 @@
       crossorigin=""
     />
 
+    <link rel="stylesheet" href="CSS/maps.css" />
+
     <!-- JS -->
     <script
       src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
@@ -28,30 +30,8 @@
       crossorigin=""
     ></script>
     <script type="module" src="JS/maps.js"></script>
-
-    <style>
-      *,
-      *::after,
-      *::before {
-        padding: 0;
-        margin: 0;
-        box-sizing: border-box;
-      }
-
-      body {
-        min-height: 100vh;
-        position: relative;
-        isolation: isolate;
-      }
-
-      #map {
-        height: 100vh;
-        width: 100vw;
-      }
-    </style>
   </head>
   <body>
-    <div class="box"></div>
     <div class="map__container">
       <div id="map"></div>
     </div>
