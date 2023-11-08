@@ -393,9 +393,6 @@ body {
   flex-wrap: wrap;
 }
 
-.sub__details .lang--mdf > span {
-}
-
 #lang {
   flex-wrap: wrap;
   gap: 0.25rem;
@@ -439,11 +436,9 @@ body {
 .lists {
   grid-template-columns: repeat(auto-fit, minmax(15ch, 1fr));
   text-align: center;
+  align-items: center;
 }
 
-.lists > li {
-  text-wrap: nowrap;
-}
 /* ----------------------- */
 
 /* Image Slider */
