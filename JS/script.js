@@ -156,6 +156,7 @@ const getBorderFullname = async function (arrayBorder) {
 };
 
 const displayData = function (result) {
+  language.innerHTML = "";
   geoCoordinate = result.latlng;
   inputCountry.blur();
   curSlide = 0;
