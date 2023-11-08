@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="CSS/style.css" />
 
     <!-- JS -->
-    <script defer src="JS/script.js"></script>
+    <script type="module" src="JS/script.js"></script>
   </head>
   <body>
     <div class="display__error">
@@ -169,12 +169,13 @@
                     <p class="para">Currency:</p>
                     <span id="currency" class="ans">Euro</span>
                   </li>
-                  <li>
+                  <li class="lang--mdf">
                     <p class="para">Languages:</p>
-                    <span id="lang" class="ans">Dutch, French, German</span>
+                    <div id="lang" class="ans flex"></div>
+                    <!-- <span id="lang" class="ans">Dutch, French, German</span> -->
                   </li>
 
-                  <li class="globe--mdf">
+                  <li class="globe--mdf" id="globe-btn">
                     <a class="globe-link" href="map.html">
                       See
                       <span class="highlight-2 highlight-2-text">India</span> on

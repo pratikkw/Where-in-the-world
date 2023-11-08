@@ -1,7 +1,37 @@
 "use strict";
+
+// ------------------------------------------
+// BODY
+const body = document.querySelector("body");
+
+// ERROR
+const displayErrorBox = document.querySelector(".display__error");
+const errorMsg = document.querySelector(".errormsg");
+
+// BUTTONs
+const closeErrorBtn = document.querySelector(".wrong__icon");
+const darkModeBtn = document.getElementById("darkmode");
+const locationBtn = document.getElementById("location__icon");
 const searchBtn = document.getElementById("search-icon");
+const btnLeft = document.querySelector(".arrow--left");
+const btnRight = document.querySelector(".arrow--right");
+const globeBtn = document.getElementById("globe-btn");
+
+// SEARCH BAR
+const inputCountry = document.getElementById("inputCountry");
+const suggestion__box = document.querySelector(".suggestion__box");
+const suggestion__subBox = document.querySelector(".suggestion__sub-box");
+const suggestion__lists = document.querySelector(".suggestion__lists");
+
+// SLIDER
+const dots = document.querySelector(".dots");
+
+// IMAGEs
 const flagImg = document.getElementById("flag-img");
 const coatOfArmsImg = document.getElementById("coatofarm-img");
+const sliderImgs = document.querySelectorAll(".imgs__box > img");
+
+// SHOW DETAILs
 const primaryName = document.getElementById("primary-name");
 const officialName = document.getElementById("Officialname");
 const population = document.getElementById("population");
@@ -11,52 +41,51 @@ const capital = document.getElementById("capital");
 const continents = document.getElementById("continents");
 const area = document.getElementById("area");
 const currency = document.getElementById("currency");
-const langSet = document.getElementById("lang");
-const linkText = document.querySelector(".highlight-2-text");
+const language = document.getElementById("lang");
+const seeOnMapText = document.querySelector(".highlight-2-text");
+
+// NEIGHBOURs list
+const neighboursList = document.querySelector(".neighbours > ul");
+// ------------------------------------------
+
+// --> GLOBAL VARIABLEs
+let geoCoordinate;
+let curSlide = 0;
+let maxSlide = sliderImgs.length - 1;
+let countryName;
+let border;
+let clearErrorTimeout;
+// ------------------------------------------
+
+// --> MOST USED FUNCTIONs
+// ------------------------------------------
 
 // --> DarkMode
-const body = document.querySelector("body");
-const darkModeBtn = document.getElementById("darkmode");
 let stateOfMode = localStorage.getItem("mode");
 
-const onAndOff = function (state) {
+const onAndOff = function (status) {
   body.classList.toggle("darkmode");
-  localStorage.setItem("mode", `${state}`);
+  localStorage.setItem("mode", `${status}`);
 };
 
-if (stateOfMode === "enable") {
-  onAndOff("enable");
-}
-
+stateOfMode === "enable" ? onAndOff("enable") : "";
 darkModeBtn.addEventListener("click", function () {
   stateOfMode = localStorage.getItem("mode");
-  if (stateOfMode !== "enable") {
-    onAndOff("enable");
-  } else {
-    onAndOff("disable");
-  }
+  stateOfMode !== "enable" ? onAndOff("enable") : onAndOff("disable");
 });
 //////////////////////////////
 
 // --> Slider
-const images = document.querySelectorAll(".imgs__box > img");
-const btnLeft = document.querySelector(".arrow--left");
-const btnRight = document.querySelector(".arrow--right");
-const dots = document.querySelector(".dots");
-
-let curSlide = 0;
-let maxSlide = images.length - 1;
-
 const createDots = function () {
-  const arr = [...images];
-  const dot = arr.map((item, ind) => {
-    const ele = document.createElement("button");
-    ele.className = "btn-dot";
-    ele.dataslide = ind;
+  [...sliderImgs]
+    .map((item, ind) => {
+      const ele = document.createElement("button");
+      ele.className = "btn-dot";
+      ele.dataslide = ind;
 
-    return ele;
-  });
-  dot.forEach((item) => dots.append(item));
+      return ele;
+    })
+    .forEach((item) => dots.append(item));
 };
 createDots();
 
@@ -64,7 +93,7 @@ const moveSlide = function (slide) {
   const btnDots = document.querySelectorAll(".btn-dot");
   btnDots.forEach((item) => item.classList.remove("btn-dot--active"));
   btnDots[slide].classList.add("btn-dot--active");
-  images.forEach((item, ind) => {
+  sliderImgs.forEach((item, ind) => {
     item.style.transform = `translateX(${(ind - slide) * 100}%)`;
   });
 };
@@ -98,13 +127,6 @@ dots.addEventListener("click", function (e) {
 //////////////////////////////
 
 // --> Search Suggestion
-const inputCountry = document.getElementById("inputCountry");
-const suggestion__box = document.querySelector(".suggestion__box");
-const suggestion__subBox = document.querySelector(".suggestion__sub-box");
-const suggestion__lists = document.querySelector(".suggestion__lists");
-const neighboursList = document.querySelector(".neighbours > ul");
-
-let countryName;
 const countryNameData = async function () {
   const data = await fetch(`countryData.json`);
   const { countries } = await data.json();
@@ -114,18 +136,18 @@ countryNameData();
 
 const displayBorders = function (arr) {
   neighboursList.innerHTML = "";
-  const borderCountries = arr.map((item) => {
-    const ele = document.createElement("li");
-    ele.className = "style-1";
-    ele.textContent = item;
-    return ele;
-  });
-  borderCountries.forEach((item) => neighboursList.append(item));
+  arr
+    .map((item) => {
+      const ele = document.createElement("li");
+      ele.className = "style-1";
+      ele.textContent = item;
+      return ele;
+    })
+    .forEach((item) => neighboursList.append(item));
 };
 
 const getBorderFullname = async function (arrayBorder) {
   const data = await fetch(
-    // `https://restcountries.com/v3.1/alpha?codes=170,${arrayBorder.join(",")}`
     `https://restcountries.com/v3.1/alpha?codes=${arrayBorder.join(",")}`
   );
   const res = await data.json();
@@ -133,8 +155,8 @@ const getBorderFullname = async function (arrayBorder) {
   displayBorders(storeName);
 };
 
-let bor;
 const displayData = function (result) {
+  geoCoordinate = result.latlng;
   inputCountry.blur();
   curSlide = 0;
   moveSlide(curSlide);
@@ -143,8 +165,13 @@ const displayData = function (result) {
   const [cap] = result.capital;
   const [conti] = result.continents;
   const [cur] = Object.values(result.currencies);
-  const lang = Object.values(result.languages);
-  bor = result.borders ? result.borders : ["No Borders"];
+  const lang = Object.values(result.languages).map((item, ind, arr) => {
+    const ele = document.createElement("span");
+    ele.className = "ans";
+    ele.textContent = `${item},`;
+    return ele;
+  });
+  border = result.borders ? result.borders : ["No Borders"];
 
   flagImg.src = result.flags.svg;
   flagImg.alt = result.flags.alt;
@@ -158,36 +185,29 @@ const displayData = function (result) {
   continents.textContent = conti;
   area.textContent = result.area;
   currency.textContent = `${cur.symbol} (${cur.name})`;
-  langSet.textContent = lang;
-  linkText.textContent = result.name.common;
+  lang.forEach((item) => language.prepend(item));
+  seeOnMapText.textContent = result.name.common;
 
-  if (bor.every((item) => item === "No Borders")) {
-    displayBorders(bor);
-  } else {
-    getBorderFullname(bor);
-  }
+  border.every((item) => item === "No Borders")
+    ? displayBorders(border)
+    : getBorderFullname(border);
 };
-
-const displayErrorBox = document.querySelector(".display__error");
-const errorMsg = document.querySelector(".errormsg");
-const closeErrorBtn = document.querySelector(".wrong__icon");
-let timer;
 
 const autoClose = function () {
   displayErrorBox.classList.remove("display__error--active");
 };
 
 const showError = function (str) {
-  clearTimeout(timer);
+  clearTimeout(clearErrorTimeout);
   inputCountry.value = "";
   errorMsg.innerHTML = `Country with name <span class="highlight">${str}</span> does not exist!`;
   displayErrorBox.classList.add("display__error--active");
-  timer = setTimeout(autoClose, 3000);
+  clearErrorTimeout = setTimeout(autoClose, 3000);
 };
 
 closeErrorBtn.addEventListener("click", function () {
   displayErrorBox.classList.remove("display__error--active");
-  clearTimeout(timer);
+  clearTimeout(clearErrorTimeout);
 });
 
 const getCountryData = async function (country) {
@@ -219,40 +239,36 @@ const renderCountryList = function (arr) {
 
 suggestion__lists.addEventListener("click", function (e) {
   if (e.target.className === "suggest__list") {
-    inputCountry.value = e.target.textContent;
-    let searchCountry = inputCountry.value;
     suggestion__lists.innerHTML = "";
-    getCountryData(searchCountry);
+    getCountryData(e.target.textContent);
   }
 });
 
 inputCountry.addEventListener("input", function () {
-  const inputCountry = this.value;
   const filterCountry = countryName.filter((item) =>
-    item.toLowerCase().startsWith(inputCountry.toLowerCase())
+    item.toLowerCase().startsWith(inputCountry.value.toLowerCase())
   );
   renderCountryList(filterCountry);
 
-  if (inputCountry === "") {
+  if (inputCountry.value === "") {
     suggestion__lists.innerHTML = "";
     suggestion__box.classList.remove("suggestion__box--active");
   }
 });
 
-inputCountry.addEventListener("keydown", function (e) {
-  if (e.key !== "Enter") return;
-  suggestion__lists.innerHTML = "";
-  const str = this.value.trim();
-  if (str === "") return;
-  getCountryData(str);
-});
-
-searchBtn.addEventListener("click", function () {
+const searchCountry = function () {
   suggestion__lists.innerHTML = "";
   const str = inputCountry.value.trim();
   if (str === "") return;
   getCountryData(str);
+};
+
+inputCountry.addEventListener("keydown", function (e) {
+  if (e.key !== "Enter") return;
+  searchCountry();
 });
+
+searchBtn.addEventListener("click", searchCountry);
 
 neighboursList.addEventListener("click", function (e) {
   e.preventDefault();
@@ -260,5 +276,4 @@ neighboursList.addEventListener("click", function (e) {
   getCountryData(e.target.textContent);
   window.scrollTo({ top: 0, left: 0, behavior: "instant" });
 });
-
 //////////////////////////////
