@@ -290,15 +290,4 @@ neighboursList.addEventListener("click", function (e) {
   window.scrollTo({ top: 0, left: 0, behavior: "instant" });
 });
 
-locationBtn.addEventListener("click", function () {
-  localStorage.setItem(
-    "mapDetails",
-    JSON.stringify({
-      countryName: "You are here",
-      geoCoordinate,
-      view: 15,
-      yourlocation: true,
-    })
-  );
-});
 //////////////////////////////
