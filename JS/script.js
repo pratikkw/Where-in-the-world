@@ -251,6 +251,7 @@ const renderCountryList = function (arr) {
 
 suggestion__lists.addEventListener("click", function (e) {
   if (e.target.className === "suggest__list") {
+    inputCountry.value = "";
     suggestion__lists.innerHTML = "";
     getCountryData(e.target.textContent);
   }
