@@ -293,7 +293,7 @@ locationBtn.addEventListener("click", function () {
   localStorage.setItem(
     "mapDetails",
     JSON.stringify({
-      countryName: "You are there",
+      countryName: "You are here",
       geoCoordinate,
       view: 15,
       yourlocation: true,
