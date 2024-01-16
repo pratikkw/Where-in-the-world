@@ -11,7 +11,7 @@ const errorMsg = document.querySelector(".errormsg");
 // BUTTONs
 const closeErrorBtn = document.querySelector(".wrong__icon");
 const darkModeBtn = document.getElementById("darkmode");
-const locationBtn = document.querySelector(".location__btn");
+// const locationBtn = document.querySelector(".location__btn");
 const searchBtn = document.getElementById("search-icon");
 const btnLeft = document.querySelector(".arrow--left");
 const btnRight = document.querySelector(".arrow--right");
@@ -128,12 +128,6 @@ dots.addEventListener("click", function (e) {
 //////////////////////////////
 
 // --> Search Suggestion
-const countryNameData = async function () {
-  const data = await fetch(`countryData.json`);
-  const { countries } = await data.json();
-  countryNames = countries;
-};
-countryNameData();
 
 const displayBorders = function (arr) {
   neighboursList.innerHTML = "";
@@ -181,12 +175,14 @@ const displayData = function (result) {
   coatOfArmsImg.src = result.coatOfArms.svg;
   primaryName.textContent = result.name.common;
   officialName.textContent = result.name.official;
-  population.textContent = result.population;
+  population.textContent = `${(result.population / 1000000).toFixed(
+    2
+  )} Million`;
   region.textContent = result.region;
   subRegion.textContent = result.subregion;
   capital.textContent = cap;
   continents.textContent = conti;
-  area.textContent = result.area;
+  area.textContent = `${(result.area / 1000000).toFixed(3)} Million km²`;
   currency.textContent = `${cur.symbol} (${cur.name})`;
   lang.forEach((item) => language.prepend(item));
   seeOnMapText.textContent = result.name.common;
@@ -234,7 +230,15 @@ const getCountryData = async function (country) {
     showError(e.message);
   }
 };
-getCountryData("india");
+
+const countryNameData = async function () {
+  const data = await fetch(`countryData.json`);
+  const { countries } = await data.json();
+  countryNames = countries;
+  const randomCountry = Math.floor(Math.random() * countryNames.length);
+  getCountryData(countryNames[randomCountry]);
+};
+countryNameData();
 
 const renderCountryList = function (arr) {
   suggestion__lists.innerHTML = "";

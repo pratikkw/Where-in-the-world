@@ -90,7 +90,7 @@ select {
 }
 
 body {
-  min-height: 100vh;
+  min-height: 100dvh;
   background-color: var(--background-clr);
   color: var(--body-text-clr);
 
@@ -300,13 +300,13 @@ body {
   color: var(--body-text-clr);
 }
 
-#location__icon {
+/* #location__icon {
   cursor: pointer;
 }
 
 #location__icon > svg {
   fill: var(--location-icon-clr);
-}
+} */
 
 .suggestion__box {
   gap: 0;
@@ -365,7 +365,7 @@ body {
 
 .detail__box {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: var(--detail__box-gap);
 }
 
@@ -521,6 +521,10 @@ body {
   .arrow--right {
     right: 0;
     transform: translate(100%, -50%);
+  }
+
+  .detail__box {
+    flex-direction: row;
   }
 }
 
