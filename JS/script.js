@@ -4,6 +4,10 @@
 // BODY
 const body = document.querySelector("body");
 
+// PRE-LOADER
+const preloader = document.querySelector(".preloader");
+const preloaderImg = document.querySelector(".preloader > img");
+
 // ERROR
 const displayErrorBox = document.querySelector(".display__error");
 const errorMsg = document.querySelector(".errormsg");
@@ -74,6 +78,11 @@ darkModeBtn.addEventListener("click", function () {
   stateOfMode !== "enable" ? onAndOff("enable") : onAndOff("disable");
 });
 //////////////////////////////
+
+window.addEventListener("load", function () {
+  preloaderImg.src = "";
+  preloader.style.display = "none";
+});
 
 // --> Slider
 const createDots = function () {

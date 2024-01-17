@@ -149,7 +149,18 @@ body {
 .style-1::selection {
   user-select: none;
 }
+/* ----------------------- */
 
+/* PRE-LOADER */
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+
+  display: grid;
+  place-items: center;
+  background-color: var(--background-clr);
+}
 /* ----------------------- */
 
 /* Display Error */
@@ -194,7 +205,6 @@ body {
 .display__error--active {
   transform: translate(0%, 0%);
 }
-
 /* ----------------------- */
 
 /* HEADER */
