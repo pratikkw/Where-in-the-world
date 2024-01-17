@@ -11,7 +11,6 @@ const errorMsg = document.querySelector(".errormsg");
 // BUTTONs
 const closeErrorBtn = document.querySelector(".wrong__icon");
 const darkModeBtn = document.getElementById("darkmode");
-// const locationBtn = document.querySelector(".location__btn");
 const searchBtn = document.getElementById("search-icon");
 const btnLeft = document.querySelector(".arrow--left");
 const btnRight = document.querySelector(".arrow--right");
