@@ -238,13 +238,12 @@ const getCountryData = async function (country) {
     showError(e.message);
   }
 };
+getCountryData("india");
 
 const countryNameData = async function () {
   const data = await fetch(`countryData.json`);
   const { countries } = await data.json();
   countryNames = countries;
-  const randomCountry = Math.floor(Math.random() * countryNames.length);
-  getCountryData(countryNames[randomCountry]);
 };
 countryNameData();
 
