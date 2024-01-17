@@ -569,7 +569,7 @@ body {
   }
 }
 
-@media only screen and (min-width: 62.5rem) {
+@media only screen and (min-width: 68.75rem) {
   .main {
     /* Gap */
     --data__container-gap: 4rem;
