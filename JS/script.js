@@ -227,6 +227,7 @@ closeErrorBtn.addEventListener("click", function () {
 });
 
 const getCountryData = async function (country) {
+  console.log(country);
   try {
     const data = await fetch(
       `https://restcountries.com/v3.1/name/${country}?fullText=true`
